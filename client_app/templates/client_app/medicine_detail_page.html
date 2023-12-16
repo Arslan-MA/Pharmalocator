@@ -1,0 +1,87 @@
+{% extends 'client_app/base.html' %}
+
+{% block title %}Детали лекарства{% endblock title %}
+
+{% block content %}
+    <div class="detail_page">
+        <h1>Страница сведений о лекарстве</h1>
+        <img src="{{ medicine.photo.url }}" alt="{{ medicine.title }}">
+        <p><b>Название:</b><br> {{ medicine.title }}</p>
+        <p><b>Категория лекарства:</b><br> {{ medicine.medicinal_category }}</p>
+        <p><b>Тип лекарства:</b><br> {{ medicine.type_medicine }}</p>
+        <p><b>Возрастная категория:</b><br> {{ medicine.age_category }}</p>
+        <p><b>Описание:</b><br> {{ medicine.description }}</p>
+        <p><b>Цена:</b><br> {{ medicine.price }}$</p>
+        <div style="margin: 20px;">
+            {% if user.is_authenticated %}
+                {% if favorites %}
+                    {% for favorite in favorites %}
+                        <a href="{% url 'client_app:delete_favorites' favorite.pk %}"
+                           class="detail_btn detail_btn_ll">Удалить из избранных</a><br><br>
+                    {% endfor %}
+                {% else %}
+                    <a href="{% url 'client_app:add_favorites' medicine.slug %}"
+                       class="detail_btn detail_btn_p">Добавить в избранные</a><br><br>
+                {% endif %}
+                <a href="{% url 'client_app:cart_add_page' medicine.slug %}" class="detail_btn detail_btn_p">В корзину</a>
+            {% else %}
+                <p>Чтобы купить товар, необходимо войти в систему</p><br>
+            {% endif %}
+            <a href="{% url 'client_app:medicine_list' %}" class="detail_btn detail_btn_f">Назад</a>
+        </div>
+    </div>
+    <div class="comments">
+        <div>
+            {% if user.is_authenticated %}
+                <form action="{% url 'client_app:add_medicine_comment' medicine.slug %}"
+                      enctype="multipart/form-data" method="POST">
+                    {% csrf_token %}
+                    {% for form in comment_form %}
+                        {{ form.label }}<br>
+                        {{ form }}<br><br>
+                    {% endfor %}
+                    <input type="submit" value="Добавить" class="detail_btn detail_btn_p">
+                </form>
+            {% else %}
+                <p>Вы должны войти в систему, чтобы оставить комментарий</p>
+            {% endif %}
+        </div><br>
+        <h2>Комментарии</h2>
+        {% if comments %}
+            {% for comment in comments %}
+                <div class="comments_block">
+                    {% if comment.user == user %}
+                        <p>Ваш комментарий</p>
+                    {% else %}
+                        <p>Имя пользователя: {{ comment.user.name }}</p>
+                    {% endif %}
+                    <p>Сообщение:<br> {{ comment.body }}</p>
+                    <p>Like: {{ comment.likes.count }}</p>
+                    <p>Dislike: {{ comment.dislike.count }}</p>
+                    <p>Дата публикации: {{ comment.published }}</p>
+                    {% if user.is_authenticated %}
+                        {% if comment.user != user %}
+                            <form style="display: inline;" action="{% url 'client_app:like_comment' comment.pk %}">
+                                <input type="submit" value="👍" class="detail_btn detail_btn_p">
+                            </form>
+                            <form style="display: inline;" action="{% url 'client_app:dislike_comment' comment.pk %}">
+                                <input type="submit" value="👎" class="detail_btn">
+                            </form><br><br>
+                        {% endif %}
+                    {% else %}
+                        <p>Чтобы поставить лайк или дизлайк, вы должны войти в систему</p>
+                    {% endif %}
+                    {% if user.is_staff == True %}
+                        <a href="{% url 'client_app:delete_comment' comment.pk %}"
+                           class="detail_btn detail_btn_ll">Удалить</a><br><br>
+                    {% elif comment.user == user %}
+                        <a href="{% url 'client_app:delete_comment' comment.pk %}"
+                           class="detail_btn detail_btn_ll">Удалить</a><br><br>
+                    {% endif %}
+                </div><br>
+            {% endfor %}
+        {% else %}
+            <p>Комментарии отсутствуют</p>
+        {% endif %}
+    </div>
+{% endblock %}

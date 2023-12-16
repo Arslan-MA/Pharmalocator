@@ -1,0 +1,66 @@
+{% extends 'courier_app/base.html' %}
+
+{% block title %}Заказы для доставки{% endblock title %}
+
+{% block content %}
+    <input type="checkbox" id="filter_toggle_small" hidden>
+    <div class="filter_small">
+        <label for="filter_toggle_small" class="filter_toggle_small" onclick></label>
+        <h2>Фильтр</h2>
+        <form action="" method="get">
+            {% csrf_token %}
+            {% for form in order_filter.form %}
+                {{ form.label }}<br>
+                {{ form }}<br><br>
+            {% endfor %}
+            <input type="submit" value="Поиск" class="block_btn block_btn_f">
+        </form>
+    </div>
+    <div class="order_page">
+        <h1 id="main_list">Заказов для доставки</h1><br>
+        {% for order in order_filter.qs %}
+            <div class="order">
+                <div>
+                    <p><b>Телефон клиента:</b> {{ order.client.phone }}</p>
+                    <p><b>Адрес клиента:</b><br> {{ order.address }}</p>
+                    <p><b>Название аптеки:</b> {{ order.pharmacy.name }}</p>
+                    <p><b>Телефон аптеки:</b> {{ order.pharmacy.phone }}</p>
+                    <p><b>Адрес аптеки:</b> {{ order.pharmacy.address }}</p>
+                    <p><b>Список продуктов:</b><br> {{ order.products_string|safe }}</p>
+                    <p><b>Итоговая цена:</b> {{ order.total_price }}</p>
+                    <p><b>Статус заказа:</b> {{ order.status }}</p>
+                    {% if order.status == 'в процессе доставки' %}
+                        <a href="{% url 'courier_app:order_delivered' order.pk %}"
+                           class="block_btn detail_btn_p">Доставлено</a>
+                        <a href="{% url 'courier_app:order_refusal' order.pk %}"
+                           class="block_btn detail_btn_ll">Отказать</a><br><br>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}<br>
+
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; First</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                {% else %}
+                    <a href="#main_list">First</a>
+                    <a href="#main_list">Previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">Next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+                {% else %}
+                    <a href="#main_list">Next</a>
+                    <a href="#main_list">Last</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+{% endblock %}

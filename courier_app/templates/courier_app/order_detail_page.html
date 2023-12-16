@@ -1,0 +1,31 @@
+{% extends 'courier_app/base.html' %}
+
+{% block title %}Детали заказа{% endblock title %}
+
+{% block content %}
+    <div class="detail_page">
+        <h1>Страница сведений о заказе</h1>
+        <p><b>Имя клиента:</b> {{ order.client.name }}</p>
+        <p><b>Телефон клиента:</b> {{ order.client.phone }}</p>
+        <p><b>Адрес клиента:</b><br> {{ order.address }}</p>
+        <p><b>Название аптеки:</b> {{ order.pharmacy.name }}</p>
+        <p><b>Телефон аптеки:</b> {{ order.pharmacy.phone }}</p>
+        <p><b>Адрес аптеки:</b> {{ order.pharmacy.address }}</p>
+        <p><b>Список продуктов:</b><br> {{ order.products_string|safe }}</p>
+        {% if order.courier == None %}
+            <p><b>Курьер:</b> отсутствует</p>
+        {% else %}
+            <p><b>Имя курьера:</b> {{ order.courier.username }}</p>
+            <p><b>Телефон курьера:</b> {{ order.courier.phone }}</p>
+        {% endif %}
+        <p><b>Итоговая цена:</b> {{ order.total_price }}</p>
+        <p><b>Статус заказа:</b> {{ order.status }}</p>
+        {% if order.status == 'подготовка' %}
+            {% if user.is_courier %}
+                <a href="{% url 'courier_app:order_approval' order.pk %}"
+                   class="block_btn detail_btn_p">Принять</a><br><br>
+            {% endif %}
+        {% endif %}
+        <a href="{% url 'courier_app:order_list' %}" class="detail_btn detail_btn_f">Назад</a><br><br>
+    </div>
+{% endblock %}

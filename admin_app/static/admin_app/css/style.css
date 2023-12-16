@@ -1,0 +1,649 @@
+/* base.html */
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.html {
+    background-image: url(/static/admin_app/img/background.jpg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.header {
+    margin: auto;
+    position: relative;
+    top: 0px;
+    width: 100%;
+    background-color: rgb(76, 126, 233);
+    display: flex;
+    justify-content: space-between;
+}
+
+.img_p {
+    position: relative;
+    left: 0px;
+    margin-right: 380px;
+}
+
+.logo {
+    margin: 5px;
+    width: 240px;
+    height: 150px;
+    border-radius: 80px;
+}
+
+.btn_p {
+    width: 100%;
+    position: relative;
+    right: 0px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav_btn {
+    margin: auto;
+    border: 3px solid;
+    border-radius: 10px;
+    padding: 8px;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    font-size: 19px;
+    background-color: rgb(37, 37, 37);
+}
+
+.nav_btn_p {
+    background-color: rgb(7, 117, 99);
+}
+
+.nav_btn_ll {
+    background-color: rgb(238, 163, 25);
+}
+
+.nav_btn:hover {
+    background-color: rgb(109, 109, 109);
+}
+
+.footer {
+    margin: auto;
+    margin-top: 20px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    text-align: center;
+    font-size: 19px;
+    color: rgb(255, 255, 255);
+    background-color: rgb(37, 37, 37);
+}
+
+.about_us {
+    margin: auto;
+    width: 380px;
+    padding: 15px;
+    text-align: center;
+}
+
+.footer_ul {
+    padding: 10px;
+}
+
+.footer_ul li {
+    margin: 20px;
+}
+
+.footer a {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+}
+
+.footer a:hover {
+    color: rgb(76, 126, 233);
+    text-decoration: none;
+}
+
+.ul_1 {
+    text-align: right;
+    list-style-type: none;
+}
+
+h1 {
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+}
+
+label {
+    text-align: center;
+}
+
+select {
+    text-align: center;
+}
+
+input {
+    display: inline;
+    text-align: center;
+}
+
+textarea {
+    width: 600px;
+    height: 200px;
+    font-size: 20px;
+}
+
+.pagination {
+    margin: auto;
+    background-color: white;
+    text-align: center;
+}
+
+.pagination a {
+    width: 100px;
+    display: inline-block;
+    border: 1px solid;
+    border-radius: 10px;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    background-color: rgb(37, 37, 37);
+}
+
+.pagination a:hover {
+    background-color: rgb(109, 109, 109);
+}
+
+.step-links {
+    margin: auto;
+    width: 580px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    background-color: white;
+    border: 3px solid;
+    border-radius: 10px 10px 0px 0px;
+    border-bottom: 0px;
+    padding: 8px;
+    font-size: 19px;
+}
+
+.current {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+}
+
+
+/* start_page.html */
+
+.start_page {
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 1400px;
+    border: 3px solid;
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 10px 10px -10px rgba(0, 0, 0, 0.75), 0px -10px 10px -10px rgba(0, 0, 0, 0.75);
+}
+
+.carousel-inner {
+    margin: auto;
+    margin-top: 20px;
+    border-top: 3px solid;
+    border-bottom: 3px solid;
+}
+
+.carousel-inner h5 p {
+    color: rgb(0, 0, 0);
+}
+
+.carousel-item img {
+    margin: auto;
+    width: 900px;
+    height: 600px;
+    border-radius: 15px;
+}
+
+.carousel-control-prev {
+    margin-left: 200px;
+}
+
+.carousel-control-next {
+    margin-right: 200px;
+}
+
+.carousel-control-prev-icon {
+    border-radius: 5px;
+    background-color: rgb(0, 0, 0);
+}
+
+.carousel-control-next-icon {
+    border-radius: 5px;
+    background-color: rgb(0, 0, 0);
+}
+
+.services {
+    margin: auto;
+    margin-top: 100px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.services_cart {
+    margin: auto;
+    border-radius: 15px;
+    width: 380px;
+    height: 445px;
+    text-align: center;
+    color: rgb(255, 255, 255);
+    font-size: 18px;
+    box-shadow: 0px 10px 10px -10px rgba(0, 0, 0, 0.75), 0px -10px 10px -10px rgba(0, 0, 0, 0.75);
+}
+
+.services_cart_m {
+    background-color: rgb(76, 126, 233);
+}
+
+.services_cart_p {
+    background-color: rgb(7, 117, 99);
+}
+
+.services_cart_d {
+    background-color: rgb(238, 163, 25);
+}
+
+.services_cart p {
+    margin: 10px;
+}
+
+.services_cart img {
+    margin-top: 20px;
+    width: 160px;
+    height: 160px;
+    border: 3px solid;
+    border-radius: 80px;
+    background-color: rgb(255, 255, 255);
+}
+
+.services_cart h2 {
+    margin-top: 20px;
+}
+
+/**
+ * Переключаемая боковая панель навигации
+ * выдвигающаяся по клику слева
+ */
+
+.filter {
+    /*  ширна произвольная, не стесняйтесь экспериментировать */
+    width: 400px;
+    /* фиксируем и выставляем высоту панели на максимум */
+    height: 650px;
+    position: absolute;
+    top: 160px;
+    bottom: 0;
+    margin: 0;
+    color: rgb(255, 255, 255);
+    /* сдвигаем (прячем) панель относительно левого края страницы */
+    left: -350px;
+    /* внутренние отступы */
+    padding: 15px 20px;
+    /* плавный переход смещения панели */
+    -webkit-transition: left 0.3s;
+    -moz-transition: left 0.3s;
+    transition: left 0.3s;
+    /* определяем цвет фона панели */
+    background-color: rgb(76, 126, 233);
+    /* поверх других элементов */
+    z-index: 1;
+    text-align: center;
+    border-radius: 0px 0px 20px 0px;
+}
+
+.filter_small {
+    /*  ширна произвольная, не стесняйтесь экспериментировать */
+    width: 420px;
+    /* фиксируем и выставляем высоту панели на максимум */
+    height: 360px;
+    position: absolute;
+    top: 160px;
+    bottom: 0;
+    margin: 0;
+    color: rgb(255, 255, 255);
+    /* сдвигаем (прячем) панель относительно левого края страницы */
+    left: -370px;
+    /* внутренние отступы */
+    padding: 15px 20px;
+    /* плавный переход смещения панели */
+    -webkit-transition: left 0.3s;
+    -moz-transition: left 0.3s;
+    transition: left 0.3s;
+    /* определяем цвет фона панели */
+    background-color: rgb(76, 126, 233);
+    /* поверх других элементов */
+    z-index: 1;
+    text-align: center;
+    border-radius: 0px 0px 20px 0px;
+}
+
+.filter_user {
+    /*  ширна произвольная, не стесняйтесь экспериментировать */
+    width: 450px;
+    /* фиксируем и выставляем высоту панели на максимум */
+    height: 510px;
+    position: absolute;
+    top: 160px;
+    bottom: 0;
+    margin: 0;
+    color: rgb(255, 255, 255);
+    /* сдвигаем (прячем) панель относительно левого края страницы */
+    left: -400px;
+    /* внутренние отступы */
+    padding: 15px 20px;
+    /* плавный переход смещения панели */
+    -webkit-transition: left 0.3s;
+    -moz-transition: left 0.3s;
+    transition: left 0.3s;
+    /* определяем цвет фона панели */
+    background-color: rgb(76, 126, 233);
+    /* поверх других элементов */
+    z-index: 1;
+    text-align: center;
+    border-radius: 0px 0px 20px 0px;
+}
+
+/**
+ * Кнопка переключения панели
+ * тег <label>
+ */
+
+.filter-toggle {
+    /* абсолютно позиционируем */
+    position: absolute;
+    /* относительно левого края панели */
+    left: 355px;
+    /* отступ от верхнего края панели */
+    top: 10px;
+    /* внутренние отступы */
+    padding: 12px;
+    /* цвет текста */
+    color: rgb(37, 37, 37);
+    /* всегда поверх других элементов страницы */
+    z-index: 1;
+}
+
+.filter_toggle_small {
+    /* абсолютно позиционируем */
+    position: absolute;
+    /* относительно левого края панели */
+    left: 375px;
+    /* отступ от верхнего края панели */
+    top: 10px;
+    /* внутренние отступы */
+    padding: 12px;
+    /* цвет текста */
+    color: rgb(37, 37, 37);
+    /* всегда поверх других элементов страницы */
+    z-index: 1;
+}
+
+.filter-toggle_user {
+    /* абсолютно позиционируем */
+    position: absolute;
+    /* относительно левого края панели */
+    left: 405px;
+    /* отступ от верхнего края панели */
+    top: 10px;
+    /* внутренние отступы */
+    padding: 12px;
+    /* цвет текста */
+    color: rgb(37, 37, 37);
+    /* всегда поверх других элементов страницы */
+    z-index: 1;
+}
+
+/* определяем текст кнопки
+ * символ Unicode (TRIGRAM FOR HEAVEN)
+*/
+
+.filter-toggle:after {
+    content: '\2630';
+    text-decoration: none;
+}
+
+.filter_toggle_small:after {
+    content: '\2630';
+    text-decoration: none;
+}
+
+.filter-toggle_user:after {
+    content: '\2630';
+    text-decoration: none;
+}
+
+
+/**
+ * Когда флажок установлен, открывается панель
+ * используем псевдокласс:checked
+ */
+
+[id='filter-toggle']:checked~.filter {
+    left: 0;
+    overflow-y: auto;
+}
+
+[id='filter_toggle_small']:checked~.filter_small {
+    left: 0;
+    overflow-y: auto;
+}
+
+[id='filter-toggle_user']:checked~.filter_user {
+    left: 0;
+    overflow-y: auto;
+}
+
+
+/* all_list.html */
+
+.block {
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 400px;
+    border: 3px solid;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    text-align: center;
+    font-size: 19px;
+}
+
+.block div {
+    width: 100%;
+    padding: 15px;
+    border-top: 3px solid;
+    color: rgb(238, 238, 238);
+}
+
+.block img {
+    margin: auto;
+    background-color: none;
+    width: 200px;
+    height: 200px;
+}
+
+.block_btn {
+    margin: auto;
+    border-radius: 10px;
+    padding: 8px;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    font-size: 19px;
+    background-color: rgb(76, 126, 233);
+}
+
+.block_btn_f {
+    background-color: rgb(37, 37, 37);
+}
+
+.block_btn:hover {
+    background-color: rgb(109, 109, 109);
+}
+
+
+/* cart_page.html */
+
+.plus_minus {
+    padding: 10px 20px;
+    font-size: 20px;
+}
+
+.total_price {
+    margin: 10px;
+    text-align: center;
+    font-size: 25px;
+}
+
+
+/* detail_page.html */
+
+.detail_page {
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 1000px;
+    border: 3px solid;
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+    text-align: center;
+    font-size: 20px;
+    box-shadow: 0px 10px 10px -10px rgba(0, 0, 0, 0.75), 0px -10px 10px -10px rgba(0, 0, 0, 0.75);
+}
+
+.detail_page img {
+    border: 3px solid;
+    border-radius: 10px;
+    width: 400px;
+    height: 380px;
+}
+
+.detail_btn {
+    margin: auto;
+    border-radius: 10px;
+    padding: 8px;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    font-size: 19px;
+    background-color: rgb(76, 126, 233);
+}
+
+.detail_btn_f {
+    background-color: rgb(37, 37, 37);
+}
+
+.detail_btn_p {
+    background-color: rgb(7, 117, 99);
+}
+
+.detail_btn_ll {
+    background-color: rgb(238, 163, 25);
+}
+
+.detail_btn:hover {
+    background-color: rgb(109, 109, 109);
+}
+
+.comments {
+    margin: auto;
+    background-color: rgb(255, 255, 255);
+    text-align: center;
+    font-size: 20px;
+    border-top: 3px solid;
+    border-bottom: 3px solid;
+    box-shadow: 0px 10px 10px -10px rgba(0, 0, 0, 0.75), 0px -10px 10px -10px rgba(0, 0, 0, 0.75);
+}
+
+
+.comments div {
+    margin: auto;
+    width: 600px;
+    text-align: center;
+}
+
+.comments_block {
+    color: rgb(255, 255, 255);
+    background-color: rgb(37, 37, 37);
+}
+
+
+/* form_page.html */
+
+.form_page {
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 0px 100px;
+    width: 1000px;
+    border: 3px solid;
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+    text-align: center;
+    font-size: 20px;
+    box-shadow: 0px 10px 10px -10px rgba(0, 0, 0, 0.75), 0px -10px 10px -10px rgba(0, 0, 0, 0.75);
+}
+
+.form {
+    padding: 20px;
+    margin: 20px;
+    border: 3px solid;
+    border-radius: 20px;
+    font-size: 19px;
+    color: rgb(255, 255, 255);
+    background-color: rgb(37, 37, 37);
+}
+
+.profile {
+    color: rgb(255, 255, 255);
+    background-color: rgb(37, 37, 37);
+}
+
+
+/* order_page.html */
+
+.order_page {
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 1100px;
+    border: 3px solid;
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 10px 10px -10px rgba(0, 0, 0, 0.75), 0px -10px 10px -10px rgba(0, 0, 0, 0.75);
+}
+
+
+.order {
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 400px;
+    border: 3px solid;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    text-align: center;
+    font-size: 19px;
+}
+
+.order div {
+    color: rgb(255, 255, 255);
+    background-color: rgb(37, 37, 37);
+}

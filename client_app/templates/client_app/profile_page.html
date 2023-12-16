@@ -1,0 +1,23 @@
+{% extends 'client_app/base.html' %}
+
+{% block title %}Профиль{% endblock title %}
+
+{% block content %}
+    <div class="detail_page profile">
+        <h1>Страница профиля</h1>
+        <div>
+            <img src="{{ profile.photo.url }}" alt="{{ profile.username }}">
+        </div>
+        <div>
+            <p><b>Имя пользователя:</b><br>{{ profile.name }}</p>
+            <p><b>Электронная почта:</b><br> {{ profile.email }}</p>
+            <p><b>Телефон:</b><br> {{ profile.phone }}</p>
+        </div>
+        <a href="{% url 'client_app:profile_change_page' user.pk %}" class="block_btn">Обновить профиль</a>
+        <a href="{% url 'client_app:password_change_page' user.pk %}" class="block_btn">Изменить пароль</a><br><br>
+        <a href="{% url 'client_app:my_favorites' %}" class="block_btn detail_btn_p">Избранное</a>
+        <a href="{% url 'client_app:my_deliveries' %}" class="block_btn detail_btn_p">Ваши заказы</a>
+        <a href="{% url 'client_app:cart_page' %}" class="block_btn detail_btn_p">Корзина</a><br><br>
+        <a href="{% url 'client_app:start_page' %}" class="block_btn detail_btn_ll">Назад</a><br><br>
+    </div>
+{% endblock %}

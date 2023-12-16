@@ -1,0 +1,60 @@
+{% extends 'client_app/base.html' %}
+
+{% block title %}Избранное{% endblock title %}
+
+{% block content %}
+    <div class="start_page">
+        <h1 id="main_list">Избранное</h1>
+        {% for favorite in favorites %}
+            <div class="block">
+                <img src="{{ favorite.product.photo.url }}" alt="{{ favorite.product.title }}"
+                     class="list_img" align="left">
+                <div style="background-color: rgb(37, 37, 37);">
+                    <p>
+                        <b>Название:</b> {{ favorite.product.title }}<br>
+                        <b>Категория лекарства:</b> {{ favorite.product.medicinal_category }}<br>
+                        <b>Тип лекарства:</b> {{ favorite.product.type_medicine }}<br>
+                        <b>Возрастная категория:</b> {{ favorite.product.age_category }}<br>
+                        <b>Цена:</b> {{ favorite.product.price }}$
+                    </p>
+                    <a href="{% url 'client_app:medicine_detail' favorite.product.slug %}"
+                       class="block_btn">Подробнее</a><br><br>
+                    {% if favorites %}
+                        <a href="{% url 'client_app:delete_favorites' favorite.pk %}"
+                           class="block_btn detail_btn_ll">Удалить из избранных</a><br><br>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'client_app:cart_add_page' favorite.product.slug %}"
+                           class="block_btn detail_btn_p">В корзину</a><br><br>
+                    {% else %}
+                        <p>Чтобы купить товар, необходимо войти в систему</p>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; First</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                {% else %}
+                    <a href="#main_list">First</a>
+                    <a href="#main_list">Previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">Next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+                {% else %}
+                    <a href="#main_list">Next</a>
+                    <a href="#main_list">Last</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+{% endblock %}

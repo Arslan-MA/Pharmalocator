@@ -1,0 +1,65 @@
+{% extends 'admin_app/base.html' %}
+
+{% block title %}Детали заказа{% endblock title %}
+
+{% block content %}
+    <div class="detail_page">
+        <h1>Страница сведений о заказе</h1>
+        <p><b>Имя клиента:</b> {{ order.client.name }}</p>
+        <p><b>Телефон клиента:</b> {{ order.client.phone }}</p>
+        <p><b>Адрес клиента:</b><br> {{ order.address }}</p>
+        <p><b>Название аптеки:</b> {{ order.pharmacy.name }}</p>
+        <p><b>Телефон аптеки:</b> {{ order.pharmacy.phone }}</p>
+        <p><b>Адрес аптеки:</b><br> {{ order.pharmacy.address }}</p>
+        <p><b>Список продуктов:</b><br> {{ order.products_string|safe }}</p>
+        {% if order.courier == None %}
+            <p><b>Курьер:</b> отсутствует</p>
+        {% else %}
+            <p><b>Имя курьера:</b> {{ order.courier.username }}</p>
+            <p><b>Телефон курьера:</b> {{ order.courier.phone }}</p>
+        {% endif %}
+        <p><b>Итоговая цена:</b> {{ order.total_price }}</p>
+        <p><b>Статус заказа:</b> {{ order.status }}</p>
+        {% if order.status == 'проверка' %}
+            <a href="{% url 'admin_app:order_approval' order.pk %}" class="detail_btn detail_btn_p">Принять</a>
+            <a href="{% url 'admin_app:order_refusal' order.pk %}" class="detail_btn detail_btn_ll">Отказать</a><br><br>
+        {% endif %}
+        <a href="{% url 'admin_app:my_pharmacy_orders' order.pharmacy.pk %}"
+           class="detail_btn detail_btn_f">Назад</a><br><br>
+    </div>
+    <div class="comments">
+        <div>
+            {% if user.is_authenticated %}
+                <form action="{% url 'admin_app:add_order_comment' order.pk %}" method="POST">
+                    {% csrf_token %}
+                    {% for form in comment_form %}
+                        {{ form.label }}<br>
+                        {{ form }}<br><br>
+                    {% endfor %}
+                    <input type="submit" value="Добавить" class="detail_btn detail_btn_p">
+                </form>
+            {% else %}
+                <p>Вы должны войти в систему, чтобы оставить комментарий</p>
+            {% endif %}
+        </div><br>
+        <h2>Комментарии</h2>
+        {% for comment in comments %}
+            <div class="comments_block">
+                {% if comment.user == user %}
+                        <p>Ваш комментарий</p>
+                    {% else %}
+                        <p>Имя пользователя: {{ comment.user.name }}</p>
+                    {% endif %}
+                    <p>Сообщение:<br> {{ comment.body }}</p>
+                    <p>Дата публикации: {{ comment.published }}</p>
+                {% if user.is_staff == True %}
+                    <a href="{% url 'admin_app:delete_order_comment' comment.pk %}"
+                       class="detail_btn detail_btn_ll">Удалить</a><br><br>
+                {% elif comment.user == user %}
+                    <a href="{% url 'admin_app:delete_order_comment' comment.pk %}"
+                       class="detail_btn detail_btn_ll">Удалить</a><br><br>
+                {% endif %}
+            </div><br>
+        {% endfor %}
+    </div>
+{% endblock %}

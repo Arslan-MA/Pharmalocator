@@ -1,0 +1,27 @@
+{% extends 'admin_app/base.html' %}
+
+{% block title %}Профиль{% endblock title %}
+
+{% block content %}
+    <div class="detail_page profile">
+        <h1>Страница профиля</h1>
+        <div>
+            <img src="{{ profile.photo.url }}" alt="{{ profile.username }}" class="profile_img">
+        </div>
+        <div>
+            <p><b>Имя пользователя:</b><br><br> {{ profile.name }}</p>
+            <p><b>Электронная почта:</b><br><br> {{ profile.email }}</p>
+            <p><b>Телефон:</b><br><br> {{ profile.phone }}</p>
+        </div>
+        <a href="{% url 'admin_app:profile_change_page' user.pk %}" class="block_btn">Обновить профиль</a>
+        <a href="{% url 'admin_app:password_change_page' user.pk %}" class="block_btn">Изменить пароль</a><br><br>
+        {% if not user.is_superuser %}
+            {% if pharmacy.pharmacist == user %}
+                <a href="{% url 'admin_app:my_pharmacy' %}" class="block_btn detail_btn_p">Ваша аптека</a>
+                <a href="{% url 'admin_app:my_pharmacy_orders' pharmacy.pk %}"
+                   class="block_btn detail_btn_p">Заказы аптеки</a><br><br>
+            {% endif %}
+        {% endif %}
+        <a href="{% url 'admin_app:pharmacy_list' %}" class="block_btn">Назад</a><br><br>
+    </div>
+{% endblock %}

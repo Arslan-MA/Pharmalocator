@@ -1,0 +1,19 @@
+{% extends 'client_app/base.html' %}
+
+{% block title %}Детали аптеки{% endblock title %}
+
+{% block content %}
+    <div class="detail_page">
+        <h1>Страница сведений об аптеке</h1>
+        <img src="{{ pharmacy.photo.url }}" alt="{{ pharmacy.title }}" class="detail_img">
+        <p><b>Название:</b><br> {{ pharmacy.name }}</p>
+        <p><b>Имя фармацевта:</b><br> {{ pharmacy.pharmacist.name }}</p>
+        <p><b>Телефон фармацевта:</b><br> {{ pharmacy.pharmacist.phone }}</p>
+        <p><b>Телефон аптеки:</b><br> {{ pharmacy.phone }}</p>
+        <p><b>Адрес аптеки:</b><br> {{ pharmacy.address }}</p>
+        <div style="margin: 20px;">
+            <a href="{% url 'client_app:pharmacy_location' pharmacy.pk %}" class="detail_btn">На карте</a>
+            <a href="{% url 'client_app:pharmacy_list' %}" class="detail_btn detail_btn_f">Назад</a>
+        </div>
+    </div>
+{% endblock %}

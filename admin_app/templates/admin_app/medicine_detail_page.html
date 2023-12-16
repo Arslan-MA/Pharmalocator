@@ -1,0 +1,65 @@
+{% extends 'admin_app/base.html' %}
+
+{% block title %}Детали лекарства{% endblock title %}
+
+{% block content %}
+    <div class="detail_page">
+        <h1>Страница сведений о лекарстве</h1>
+        <img src="{{ medicine.photo.url }}" alt="{{ medicine.title }}" class="detail_img">
+        <p><b>Название:</b><br> {{ medicine.title }}</p>
+        <p><b>Категория лекарства:</b><br> {{ medicine.medicinal_category }}</p>
+        <p><b>Тип лекарства:</b><br> {{ medicine.type_medicine }}</p>
+        <p><b>Возрастная категория:</b><br> {{ medicine.age_category }}</p>
+        <p><b>Описание:</b><br> {{ medicine.description }}</p>
+        <p><b>Цена:</b><br> {{ medicine.price }}$</p><br>
+        <div style="margin: 20px;">
+            {% if user.is_authenticated %}
+                <a href="{% url 'admin_app:medicine_update' medicine.slug %}"
+                   class="detail_btn detail_btn_p">Обновить</a>
+                <a href="{% url 'admin_app:medicine_delete' medicine.slug %}"
+                   class="detail_btn detail_btn_ll">Удалить</a><br><br>
+            {% else %}
+                <p>Чтобы удалить или обновить продукт, необходимо войти в систему</p>
+            {% endif %}
+            <a href="{% url 'admin_app:medicine_list' %}" class="detail_btn detail_btn_f">Назад</a>
+        </div>
+    </div>
+
+    <div class="comments">
+        <div>
+            {% if user.is_authenticated %}
+                <form action="{% url 'admin_app:add_medicine_comment' medicine.slug %}" method="POST">
+                    {% csrf_token %}
+                    {% for form in comment_form %}
+                        {{ form.label }}<br>
+                        {{ form }}<br><br>
+                    {% endfor %}
+                    <input type="submit" value="Добавить" class="detail_btn detail_btn_p">
+                </form>
+            {% else %}
+                <p>Вы должны войти в систему, чтобы оставить комментарий</p>
+            {% endif %}
+        </div><br>
+        <h2>Комментарии</h2>
+        {% for comment in comments %}
+            <div class="comments_block">
+                {% if comment.user == user %}
+                        <p>Ваш комментарий</p>
+                    {% else %}
+                        <p>Имя пользователя: {{ comment.user.name }}</p>
+                    {% endif %}
+                    <p>Сообщение:<br> {{ comment.body }}</p>
+                    <p>Like: {{ comment.likes.count }}</p>
+                    <p>Dislike: {{ comment.dislike.count }}</p>
+                    <p>Дата публикации: {{ comment.published }}</p>
+                {% if user.is_staff == True %}
+                    <a href="{% url 'admin_app:delete_medicine_comment' comment.pk %}"
+                       class="detail_btn detail_btn_ll">Удалить</a><br><br>
+                {% elif comment.user == user %}
+                    <a href="{% url 'admin_app:delete_medicine_comment' comment.pk %}"
+                       class="detail_btn detail_btn_ll">Удалить</a><br><br>
+                {% endif %}
+            </div><br>
+        {% endfor %}
+    </div>
+{% endblock %}

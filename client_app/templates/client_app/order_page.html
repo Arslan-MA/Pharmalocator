@@ -1,0 +1,15 @@
+{% extends 'client_app/base.html' %}
+
+{% block title %}Заказ{% endblock title %}
+
+{% block content %}
+    <div class="form_page login">
+    <h1>Оформление заказа</h1>
+        <form method="POST" action="{% url 'client_app:save_order' %}" enctype="multipart/form-data" class="form">
+            {% csrf_token %}
+            {{ form.as_p }}<br>
+            <input type="submit" value="Оформить заказ" class="detail_btn detail_btn_p"><br><br>
+            <a href="{% url 'client_app:cart_page' %}" class="detail_btn">Назад</a>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'admin_app/base.html' %}
+
+{% block title %}Обновление лекарства{% endblock title %}
+
+{% block content %}
+    <div class="form_page">
+        <h1>Страница обновления лекарств</h1>
+        <form action="" method="post" enctype="multipart/form-data" class="form">
+            {% csrf_token %}
+            {% for f in form %}
+                {{ f.label }}<br>
+                {{ f }}<br><br>
+            {% endfor %}
+            <input type="submit" value="Обновить" class="detail_btn detail_btn_p"><br><br>
+            <a href="{% url 'admin_app:medicine_list' %}" class="detail_btn">Назад</a>
+        </form>
+    </div>
+{% endblock %}

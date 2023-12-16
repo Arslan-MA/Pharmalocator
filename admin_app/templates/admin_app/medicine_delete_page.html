@@ -1,0 +1,22 @@
+{% extends 'admin_app/base.html' %}
+
+{% block title %}Удаление лекарства{% endblock title %}
+
+{% block content %}
+    <div class="detail_page">
+        <h1>Страница удаления лекарства</h1>
+        <img src="{{ medicine.photo.url }}" alt="{{ medicine.title }}" class="detail_img">
+        <p><b>Название:</b><br> {{ medicine.title }}</p>
+        <p><b>Категория лекарства:</b><br> {{ medicine.medicinal_category }}</p>
+        <p><b>Тип лекарства:</b><br> {{ medicine.type_medicine }}</p>
+        <p><b>Возрастная категория:</b><br> {{ medicine.age_category }}</p>
+        <p><b>Описание:</b><br> {{ medicine.description }}</p>
+        <p><b>Цена:</b><br> {{ medicine.price }}$</p><br>
+        <h2>Удалить это продукт?</h2>
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="submit" value="Удалить" class="block_btn detail_btn_ll"><br><br>
+            <a href="{% url 'admin_app:medicine_list' %}" class="block_btn detail_btn_f">Назад</a><br><br>
+        </form>
+    </div>
+{% endblock %}

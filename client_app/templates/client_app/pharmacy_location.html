@@ -1,0 +1,36 @@
+{% extends 'client_app/base.html' %}
+
+{% block title %}Местоположение аптеки{% endblock title %}
+
+{% block content %}
+    <div class="start_page">
+        <h1>Местоположение аптеки</h1>
+        <div class="detail_page">
+            {{ map|safe }}<br>
+            <form method="post" class="form" style="margin: auto;
+            width: 400px;
+            text-align: center;">
+                {% csrf_token %}
+                <label for="user_location">Введите ваше местоположение</label><br>
+                <input type="text" id="user_location" name="user_location"><br><br>
+                <input type="submit" value="Проверить расстояние" class="detail_btn"><br><br>
+            </form><br>
+            <h3>Информация об аптеках</h3>
+            {% if pharmacy %}
+                <div class="block">
+                    <p>
+                        <b>Название</b><br> {{ pharmacy.name }}<br> <b>Адрес</b><br> {{ pharmacy.address }}<br>
+                        <b>Расстояние</b><br>
+                        {% if pharmacy.distance %}
+                            ({{ pharmacy.distance }} км)
+                        {% else %}
+                            Пожалуйста, укажите ваше местоположение
+                        {% endif %}
+                    </p>
+                    <a href="{% url 'client_app:pharmacy_detail' pharmacy.pk %}" class="block_btn">Подробнее</a><br>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+

@@ -1,0 +1,21 @@
+{% extends 'admin_app/base.html' %}
+
+{% block title %}Удаление аптеки{% endblock title %}
+
+{% block content %}
+    <div class="detail_page">
+        <h1>Страница удаления аптеки</h1>
+        <img src="{{ pharmacy.photo.url }}" alt="{{ pharmacy.title }}">
+        <p><b>Название:</b><br> {{ pharmacy.name }}</p>
+        <p><b>Имя фармацевта:</b><br> {{ pharmacy.pharmacist.name }}</p>
+        <p><b>Телефон фармацевта:</b><br> {{ pharmacy.pharmacist.phone }}</p>
+        <p><b>Телефон аптеки:</b><br> {{ pharmacy.phone }}</p>
+        <p><b>Адрес аптеки:</b><br> {{ pharmacy.address }}</p>
+        <h2>Удалить эту аптеку?</h2>
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="submit" value="Удалить" class="block_btn detail_btn_ll"><br><br>
+            <a href="{% url 'admin_app:pharmacy_list' %}" class="block_btn detail_btn_f">Назад</a><br><br>
+        </form>
+    </div>
+{% endblock %}

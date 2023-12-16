@@ -1,0 +1,64 @@
+{% extends 'admin_app/base.html' %}
+
+{% block title %}Заказы аптеки{% endblock title %}
+
+{% block content %}
+    <input type="checkbox" id="filter_toggle_small" hidden>
+    <div class="filter_small">
+        <label for="filter_toggle_small" class="filter_toggle_small" onclick></label>
+        <h2>Фильтр</h2>
+        <form action="" method="get">
+            {% csrf_token %}
+            {{ orders.form.as_p }}
+            <input type="submit" value="Поиск" class="block_btn block_btn_f">
+        </form>
+    </div>
+    <div class="order_page">
+        <h1 id="main_list">Список заказов вашей аптеки</h1><br>
+        {% for order in orders.qs %}
+            <div class="block">
+                <div style="background-color: rgb(37, 37, 37);">
+                    <p>
+                        <b>Имя клиента:</b> {{ order.client.name }}<br>
+                        <b>Телефон клиента:</b> {{ order.client.phone }}<br>
+                        <b>Адрес клиента:</b> {{ order.address }}<br>
+                        <b>Название аптеки:</b> {{ order.pharmacy.name }}<br>
+                        <b>Итоговая цена:</b> {{ order.total_price }}<br>
+                        <b>Статус заказа:</b> {{ order.status }}
+                    </p><br>
+                    {% if order.status == 'проверка' %}
+                        <a href="{% url 'admin_app:order_approval' order.pk %}"
+                           class="block_btn detail_btn_p">Принять</a>
+                        <a href="{% url 'admin_app:order_refusal' order.pk %}"
+                           class="block_btn detail_btn_ll">Отказать</a><br><br>
+                    {% endif %}
+                    <a href="{% url 'admin_app:order_detail' order.pk %}" class="block_btn">Подробнее</a>
+                </div>
+            </div>
+        {% endfor %}<br>
+
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; First</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                {% else %}
+                    <a href="#main_list">First</a>
+                    <a href="#main_list">Previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">Next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+                {% else %}
+                    <a href="#main_list">Next</a>
+                    <a href="#main_list">Last</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+{% endblock %}

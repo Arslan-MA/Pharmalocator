@@ -1,0 +1,23 @@
+{% extends 'courier_app/base.html' %}
+
+{% block title %}Профиль{% endblock title %}
+
+{% block content %}
+    <div class="detail_page profile">
+        <h1>Страница профиля</h1>
+        <div>
+            <img src="{{ profile.photo.url }}" alt="{{ profile.username }}"><br>
+        </div>
+        <div>
+            <p><b>Имя пользователя:</b><br> {{ profile.name }}</p>
+            <p><b>Электронная почта:</b><br> {{ profile.email }}</p>
+            <p><b>Телефон:</b><br> {{ profile.phone }}</p>
+        </div>
+    <a href="{% url 'courier_app:profile_change_page' user.pk %}" class="block_btn">Обновить профиль</a>
+    <a href="{% url 'courier_app:password_change_page' user.pk %}" class="block_btn">Изменить пароль</a><br><br>
+    {% if user.is_courier == True %}
+        <a href="{% url 'courier_app:my_deliveries' %}" class="block_btn detail_btn_p">Ваши доставки</a><br><br>
+    {% endif %}
+    <a href="{% url 'courier_app:order_list' %}" class="block_btn">Назад</a><br><br>
+    </div>
+{% endblock %}

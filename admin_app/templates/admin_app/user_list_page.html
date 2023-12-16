@@ -1,0 +1,72 @@
+{% extends 'admin_app/base.html' %}
+
+{% block title %}Список пользователей{% endblock title %}
+
+{% block content %}
+    <input type="checkbox" id="filter-toggle_user" hidden>
+    <div class="filter_user">
+        <label for="filter-toggle_user" class="filter-toggle_user" onclick></label>
+        <h2>Фильтр</h2>
+        <form action="" method="get">
+            {% csrf_token %}
+            {% for f in filter.form %}
+                {{ f.label }}<br>
+                {{ f }}<br><br>
+            {% endfor %}
+            <input type="submit" value="Поиск" class="block_btn block_btn_f">
+        </form>
+    </div>
+    <div class="start_page">
+        <h1 id="main_list">Страница списка пользователей</h1>
+            {% for customuser in customusers %}
+                {% if not customuser.is_superuser == True %}
+                    <div class="block">
+                        <img src="{{ customuser.photo.url }}" alt="{{ customuser.username }}"
+                             class="list_img" align="left">
+                        <div style="background-color: rgb(37, 37, 37);">
+                            <p>
+                                <b>Имя пользователя:</b> {{ customuser.name }}<br>
+                                <b>Электронная почта:</b> {{ customuser.email }}<br>
+                                <b>Телефон:</b> {{ customuser.phone }}<br>
+                            </p>
+                            <a href="{% url 'admin_app:user_detail_page' customuser.pk %}"
+                               class="block_btn">Подробнее</a><br><br>
+                            {% if user.is_authenticated %}
+                                <a href="{% url 'admin_app:user_update_page' customuser.pk %}"
+                                   class="block_btn detail_btn_p">Обновить</a>
+                                <a href="{% url 'admin_app:user_delete_page' customuser.pk %}"
+                                   class="block_btn detail_btn_ll">Удалить</a>
+                            {% else %}
+                                <p>Для изменения данных пользователя вы должны быть администратором</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}<br>
+
+
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; First</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                {% else %}
+                    <a href="#main_list">First</a>
+                    <a href="#main_list">Previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">Next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+                {% else %}
+                    <a href="#main_list">Next</a>
+                    <a href="#main_list">Last</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+{% endblock %}

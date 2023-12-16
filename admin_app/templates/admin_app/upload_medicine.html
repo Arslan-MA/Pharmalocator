@@ -1,0 +1,16 @@
+{% extends 'admin_app/base.html' %}
+
+{% block title %}Загрузка данных{% endblock title %}
+
+{% block content %}
+    <div class="form_page">
+        <h1>Загрузка данных</h1>
+        <form method="post" enctype="multipart/form-data" class="form">
+            {% csrf_token %}
+            <input type="file" name="file" accept=".xls, .xlsx"><br><br>
+            <button type="submit" class="detail_btn detail_btn_p">Загрузить</button><br><br>
+            <a href="{% url 'admin_app:pharmacy_list' %}" class="detail_btn">Назад</a>
+        </form>
+    </div>
+{% endblock %}
+

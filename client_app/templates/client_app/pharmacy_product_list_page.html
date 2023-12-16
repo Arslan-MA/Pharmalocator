@@ -1,0 +1,32 @@
+{% extends 'client_app/base.html' %}
+
+{% block title %}Список лекарств{% endblock title %}
+
+{% block content %}
+    <div class="start_page">
+        <h1 id="main_list">Список лекарств аптеки</h1><br>
+            {% for product in pharmacy.product_list.all %}
+                <div class="block">
+                    <img src="{{ product.photo.url }}" alt="{{ product.title }}" align="left">
+                    <div style="background-color: rgb(37, 37, 37);">
+                        <h3>{{ product.title }}</h3>
+                        <p>{{ product.description }}</p>
+                        <p>Price: {{ product.price }}</p>
+                        <button onclick="addToCart('{{ product.slug }}')">Add to Cart</button>
+                    </div>
+                </div>
+            {% endfor %}
+    </div>
+    <script>
+        function addToCart(productSlug) {
+            var request = new XMLHttpRequest();
+            request.open('GET', `/cart/add/${productSlug}/`, true);
+            request.onreadystatechange = function() {
+                if (request.readyState === 4 && request.status === 200) {
+                    alert('Product added to cart with discount!');
+                }
+            };
+            request.send();
+        }
+    </script>
+{% endblock %}

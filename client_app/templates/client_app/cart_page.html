@@ -1,0 +1,41 @@
+{% extends 'client_app/base.html' %}
+
+{% block title %}Корзина{% endblock title %}
+
+{% block content %}
+        <div class="start_page">
+            <h1>Страница корзины</h1>
+            {% if cart.total_price != 0 %}
+                {% for cartitem in cart.cartitems.all %}
+                    <div class="block">
+                        <p><b>Название:</b><br> {{ cartitem.product.title }}</p>
+                        <p><b>Цена:</b><br> {{ cartitem.get_item_price }}$</p>
+                        <p><b>Количество:</b><br> {{ cartitem.quantity }}</p>
+                        <div style="background-color: rgb(37, 37, 37);">
+                            {% if cartitem.quantity != 1 %}
+                                <a href="{% url 'client_app:cart_quantity_page' cartitem.product.slug 'decr' %}"
+                                   class="block_btn plus_minus">-</a>
+                            {% else %}
+                                <a href="" class="block_btn plus_minus">-</a>
+                            {% endif %}
+                            {{ cartitem.quantity }}
+                            <a href="{% url 'client_app:cart_quantity_page' cartitem.product.slug 'incr' %}"
+                               class="block_btn plus_minus">+</a><br><br>
+                            <a href="{% url 'client_app:cart_remove_page' cartitem.product.slug %}"
+                               class="block_btn">Удалить</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p style="text-align: center;
+                font-size: 25px;">Корзина пуста</p>
+            {% endif %}
+            <div class="total_price">
+                {% if cart.total_price != 0 %}
+                    <p><b>Итоговая цена:</b> {{ cart.total_price }}$</p><br>
+                    <a href="{% url 'client_app:order_page' %}" class="block_btn detail_btn_p">Оформить заказ</a><br><br>
+                {% endif %}
+                <a href="{% url 'client_app:start_page' %}" class="block_btn block_btn_f">Назад</a>
+            </div>
+        </div>
+{% endblock content %}

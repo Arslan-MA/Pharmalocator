@@ -1,0 +1,67 @@
+{% extends 'client_app/base.html' %}
+
+{% block title %}Начальная страница{% endblock title %}
+
+{% block content %}
+    <div class="start_page">
+        <h1>Добро пожаловать на сайт Pharmalocator</h1>
+        <div id="carouselExample" class="carousel slide">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="static/admin_app/img/carousel_m.jpg" class="d-block" alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="static/admin_app/img/carousel_p.jpg" class="d-block" alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="static/admin_app/img/carousel_d.jpg" class="d-block" alt="...">
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+        <div class="services">
+            <div class="services_cart services_cart_m">
+                <img src="static/admin_app/img/medicine.png" alt="medicine">
+                <h2>Большой ассортимент лекарственных средств</h2>
+                <p>
+                    В нашем ассортименте представлено множество лекарственных препаратов и других товаров,
+                    связанных с медициной, которые вы можете легко найти благодаря удобной системе поиска
+                </p>
+            </div>
+            <div class="services_cart services_cart_p">
+                <img src="static/admin_app/img/default_pharmacy.png" alt="pharmacy">
+                <h2>Большой выбор аптек</h2>
+                <p>
+                    Наш проект уже привлек множество сторонних аптек по всему городу,
+                    а также мы предоставляем удобную систему поиска,
+                    которая поможет вам найти нужную аптеку, удобную для вас
+                </p>
+            </div>
+            <div class="services_cart services_cart_d">
+                <img src="static/admin_app/img/delivery.png" alt="delivery">
+                <h2>Доставка по всему городу</h2>
+                <p>
+                    Если клиент желает зарегистрироваться на нашем сайте, то мы предоставляем удобный и
+                    быстрый сервис доставки по всему городу. Кроме того, у вас есть возможность самостоятельно
+                    заняться доставкой товаров с хорошей оплатой и свободным графиком
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+<!--        {% if user.is_authenticated %}-->
+<!--            <p>Добро пожаловать, пользователь - <b>{{ user.name }}</b>,-->
+<!--                теперь вам доступен полный функционал сайта</p>-->
+<!--        {% else %}-->
+<!--            <p>Добро пожаловать на наш сайт, пожалуйста, зарегистрируйтесь,-->
+<!--                чтобы получить полный функционал нашего сайта.</p>-->
+<!--        {% endif %}-->

@@ -1,0 +1,21 @@
+{% extends 'admin_app/base.html' %}
+
+{% block title %}Удаление пользователя{% endblock title %}
+
+{% block content %}
+    <div class="detail_page">
+        <h1>Страница удаления пользователя</h1>
+        <img src="{{ customuser.photo.url }}" alt="{{ customuser.username }}">
+        <p>
+            <b>Имя пользователя:</b> {{ customuser.name }}<br>
+            <b>Электронная почта:</b> {{ customuser.email }}<br>
+            <b>Телефон:</b> {{ customuser.phone }}<br>
+        </p><br><br>
+        <h2>Удалить пользователя?</h2>
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="submit" value="Удалить" class="block_btn detail_btn_ll"><br><br>
+            <a href="{% url 'admin_app:user_list_page' %}" class="block_btn detail_btn_f">Назад</a><br><br>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'admin_app/base.html' %}
+
+{% block title %}Сведения о пользователе{% endblock title %}
+
+{% block content %}
+    <div class="detail_page profile">
+        <h1>Страница сведений о пользователе</h1>
+        <div>
+            <img src="{{ customuser.photo.url }}" alt="{{ customuser.username }}" class="profile_img">
+        </div>
+        <div>
+            <p><b>Имя пользователя:</b><br><br> {{ customuser.name }}</p>
+            <p><b>Электронная почта:</b><br><br> {{ customuser.email }}</p>
+            <p><b>Телефон:</b><br><br> {{ customuser.phone }}</p>
+        </div>
+        {% if user.is_authenticated %}
+            <a href="{% url 'admin_app:user_update_page' customuser.pk %}" class="block_btn detail_btn_p">Обновить</a>
+            <a href="{% url 'admin_app:user_delete_page' customuser.pk %}"
+               class="block_btn detail_btn_ll">Удалить</a><br><br>
+        {% else %}
+            <p>Для изменения данных пользователя вы должны быть администратором</p><br><br>
+        {% endif %}
+        <a href="{% url 'admin_app:user_list_page' %}" class="block_btn">Назад</a><br><br>
+    </div>
+{% endblock %}

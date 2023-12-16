@@ -1,0 +1,80 @@
+{% extends 'admin_app/base.html' %}
+
+{% block title %}Список лекарств{% endblock title %}
+
+{% block content %}
+    <input type="checkbox" id="filter-toggle" hidden>
+    <div class="filter">
+        <label for="filter-toggle" class="filter-toggle" onclick></label>
+        <h2>Фильтр</h2>
+        <form action="" method="get">
+            {% csrf_token %}
+            {% for f in filter.form %}
+                {{ f.label }}<br>
+                {{ f }}<br><br>
+            {% endfor %}
+            <input type="submit" value="Поиск" class="block_btn block_btn_f">
+        </form>
+    </div>
+    <div class="start_page">
+        <h1 id="main_list">Список лекарств</h1>
+        <div style="margin:auto;
+        text-align:center;">
+            {% if user.is_staff == True %}
+                {% if medicines %}
+                    <a href="{% url 'admin_app:download_file' file_type='medicine' %}" class="block_btn detail_btn_p">
+                        Выгрузить данные
+                    </a>
+                {% endif %}
+            {% endif %}
+        </div><br>
+        {% for medicine in medicines %}
+            <div class="block">
+                <img src="{{ medicine.photo.url }}" alt="{{ medicine.title }}" align="left">
+                <div style="background-color: rgb(37, 37, 37);">
+                    <p>
+                        <b>Название:</b> {{ medicine.title }}<br>
+                        <b>Категория лекарства:</b> {{ medicine.medicinal_category }}<br>
+                        <b>Тип лекарства:</b> {{ medicine.type_medicine }}<br>
+                        <b>Возрастная категория:</b> {{ medicine.age_category }}<br>
+                        <b>Цена:</b> {{ medicine.price }}$
+                    </p>
+                    <a href="{% url 'admin_app:medicine_detail' medicine.slug %}"
+                       class="block_btn">Подробнее</a><br><br>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'admin_app:medicine_update' medicine.slug %}"
+                           class="block_btn detail_btn_p">Обновить</a>
+                        <a href="{% url 'admin_app:medicine_delete' medicine.slug %}"
+                           class="block_btn detail_btn_ll">Удалить</a>
+                    {% else %}
+                        <p>Чтобы удалить или обновить продукт, необходимо войти в систему</p>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; First</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                {% else %}
+                    <a href="#main_list">First</a>
+                    <a href="#main_list">Previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">Next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+                {% else %}
+                    <a href="#main_list">Next</a>
+                    <a href="#main_list">Last</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+{% endblock %}

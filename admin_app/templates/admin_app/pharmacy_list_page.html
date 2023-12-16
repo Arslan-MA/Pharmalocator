@@ -1,0 +1,85 @@
+{% extends 'admin_app/base.html' %}
+
+{% block title %}Список аптек{% endblock title %}
+
+{% block content %}
+    <input type="checkbox" id="filter_toggle_small" hidden>
+    <div class="filter_small">
+        <label for="filter_toggle_small" class="filter_toggle_small" onclick></label>
+        <h2>Фильтр</h2>
+        <form action="" method="get">
+            {% csrf_token %}
+            {% for f in filter.form %}
+                {{ f.label }}<br>
+                {{ f }}<br><br>
+            {% endfor %}
+            <input type="submit" value="Поиск" class="block_btn block_btn_f">
+        </form>
+    </div>
+    <div class="start_page">
+        <h1 id="main_list">Список аптек</h1>
+        <div style="margin:auto;
+        text-align:center;">
+            {% if user.is_superuser == True %}
+                {% if pharmacies %}
+                    <a href="{% url 'admin_app:download_file' file_type='pharmacy' %}" class="block_btn detail_btn_p">
+                        Выгрузить данные
+                    </a><br><br>
+                {% endif %}
+            {% endif %}
+            <a href="{% url 'admin_app:all_pharmacy_location' %}" class="block_btn">
+                Местоположение всех аптек
+            </a>
+        </div><br>
+        {% for pharmacy in pharmacies %}
+            <div class="block">
+                <img src="{{ pharmacy.photo.url }}" alt="{{ pharmacy.name }}" align="left">
+                <div style="background-color: rgb(37, 37, 37);">
+                    <p>
+                        <b>Название:</b> {{ pharmacy.name }}<br>
+                        <b>Телефон:</b> {{ pharmacy.phone }}<br>
+                        <b>Адрес:</b> {{ pharmacy.address }}<br>
+                    </p><br>
+                    <a href="{% url 'admin_app:pharmacy_location' pharmacy.pk %}" class="block_btn">На карте</a>
+                    <a href="{% url 'admin_app:pharmacy_detail' pharmacy.pk %}" class="block_btn">Подробнее</a><br><br>
+                    {% if user.is_superuser == True %}
+                        <a href="{% url 'admin_app:pharmacy_update' pharmacy.pk %}"
+                           class="block_btn detail_btn_p">Обновить</a>
+                        <a href="{% url 'admin_app:pharmacy_delete' pharmacy.pk %}"
+                           class="block_btn detail_btn_ll">Удалить</a>
+                    {% endif %}
+                    {% if not user.is_superuser %}
+                        {% if pharmacy.pharmacist == user %}
+                            <a href="{% url 'admin_app:my_pharmacy_orders' pharmacy.pk %}"
+                               class="block_btn detail_btn_p">Заказы</a><br>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; First</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                {% else %}
+                    <a href="#main_list">First</a>
+                    <a href="#main_list">Previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">Next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+                {% else %}
+                    <a href="#main_list">Next</a>
+                    <a href="#main_list">Last</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+{% endblock %}

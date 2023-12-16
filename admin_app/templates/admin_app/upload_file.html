@@ -1,0 +1,25 @@
+{% extends 'admin_app/base.html' %}
+
+{% block title %}Загрузка данных{% endblock title %}
+
+{% block content %}
+    <div class="form_page">
+        <h1>Загрузка данных</h1>
+        <form method="post" enctype="multipart/form-data" class="form">
+            {% csrf_token %}
+            <label for="file">Выберите файл</label><br>
+            <input type="file" name="file" id="file"><br><br>
+            <label for="type">Тип файла</label><br>
+            <select name="type" id="type">
+                <option value="medicine">Медицина</option>
+                {% if user.is_superuser == True %}
+                    <option value="pharmacy">Аптека</option>
+                {% endif %}
+            </select>
+            <br><br>
+            <button type="submit" class="detail_btn detail_btn_p">Загрузить</button>
+            <br><br>
+            <a href="{% url 'admin_app:pharmacy_list' %}" class="detail_btn">Назад</a>
+        </form>
+    </div>
+{% endblock %}
